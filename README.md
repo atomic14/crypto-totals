@@ -10,8 +10,8 @@ Add a file called `tickers.json` containing your tickers and quantities:
 ```json
 {
   "BTC": 123456,
-  "BCH":	789,
-  "ETH":	1011
+  "BCH": 789,
+  "ETH": 1011
 }
 ```
 
