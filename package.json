@@ -1,0 +1,13 @@
+{
+  "name": "crypto-totals",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/atomic14/crypto-totals",
+  "author": "Chris Greening <chris@cmgresearch.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
+  }
+}
