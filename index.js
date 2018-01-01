@@ -30,7 +30,7 @@ async function getPrices(tickers, rates) {
       throw new Error(`Cannot find ticker: ${ticker}`);
     }
     return {
-      ticker: `${ticker} (\$${Number(price.price_usd).toFixed(2)})`,
+      ticker: `${price.name} - ${ticker} (\$${Number(price.price_usd).toFixed(2)})`,
       quantity: tickers[ticker],
       usd: Number(price.price_usd),
       btc: Number(price.price_btc),
@@ -47,18 +47,18 @@ async function getExchangeRates() {
   return json.reduce((currencies, row) => ({[row.currency]: Number(row.rate), ...currencies }), {});
 }
 
-function format(string, count = 20) {
+function format(string, count = 10) {
   if(typeof string === 'number') {
     string = Number(string).toFixed(2);
   }
-  return string + ' '.repeat(count - string.length);
+  return string + ' '.repeat(Math.max(0, count - string.length));
 }
 
 function output(prices) {
   prices.sort((a, b) => b.quantity * b.usd - a.quantity * a.usd);
-  const output = [[format('Ticker'), format('Quantity'), format('USD'), format('EUR'), format('GBP'), format('BTC')],
-                  ...prices.map((row) => [format(row.ticker), format(row.quantity), format(row.quantity * row.usd), format(row.quantity * row.eur), format(row.quantity * row.gbp), format(row.quantity * row.btc)]),
-                  [format('Totals'), format(''), 
+  const output = [[format('Ticker', 33), format('Quantity'), format('USD'), format('EUR'), format('GBP'), format('BTC')],
+                  ...prices.map((row) => [format(row.ticker, 33), format(row.quantity), format(row.quantity * row.usd), format(row.quantity * row.eur), format(row.quantity * row.gbp), format(row.quantity * row.btc)]),
+                  [format('Totals', 33), format(''), 
                     format(prices.reduce((total, row) => total + row.quantity * row.usd, 0)), 
                     format(prices.reduce((total, row) => total + row.quantity * row.eur, 0)), 
                     format(prices.reduce((total, row) => total + row.quantity * row.gbp, 0)), 
